@@ -37,7 +37,7 @@ pkg upgrade
 
 # Download and run the installer
 ```bash
-curl -fsSL https://raw.githubusercontent.com/z0h1x/termux-vs-code/main/installer.sh | bash
+curl -fsSL https://raw.githubusercontent.com/z0h1x/CodePlex/main/installer.sh | bash
 ```
 # Last step !
 -# if the installer finished the installation 
