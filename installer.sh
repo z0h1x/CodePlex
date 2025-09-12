@@ -1,91 +1,185 @@
 #!/bin/bash
-base64 -d <<'EOF' | bash
-IyEvYmluL2Jhc2gKCiMgQ29sb3JzClJFRD0nXDAzM1swOzMxbScKR1JFRU49J1wwMzNbMDszMm0n
-CllFTExPVz0nXDAzM1sxOzMzbScKQkxVRT0nXDAzM1swOzM0bScKQ1lBTj0nXDAzM1swOzM2bScK
-TUFHRU5UQT0nXDAzM1sxOzM1bScKTkM9J1wwMzNbMG0nCgojIEZ1bmN0aW9uIHRvIHByaW50IGJv
-bGQgdGV4dApib2xkKCkgeyBlY2hvIC1lICJcMDMzWzFtJDFcMDMzWzBtIjsgfQoKIyBJbXByb3Zl
-ZCBwcm9ncmVzcyBiYXIgZnVuY3Rpb24gdGhhdCBzdGlja3MgYXQgOTAlIHVudGlsIGNvbW1hbmQg
-Y29tcGxldGVzCnByb2dyZXNzX2JhcigpIHsKICAgIGxvY2FsIGR1cmF0aW9uPSQxCiAgICBsb2Nh
-bCB0ZXh0PSQyCiAgICBsb2NhbCBjb21tYW5kPSQzCiAgICBwcmludGYgIlxuJXNcbiIgIiQoYm9s
-ZCAiJHRleHQiKSIKICAgIAogICAgIyBQcm9ncmVzcyB1cCB0byA5MCUKICAgIGZvciBpIGluICQo
-c2VxIDAgOTApOyBkbwogICAgICAgIHByaW50ZiAiXHJbJS01MHNdICVkJSUiICIkKHByaW50ZiAi
-JTAuc+KWiCIgJChzZXEgMSAkKChpLzIpKSkpIiAkaQogICAgICAgIHNsZWVwICRkdXJhdGlvbgog
-ICAgZG9uZQogICAgCiAgICAjIEV4ZWN1dGUgdGhlIGNvbW1hbmQKICAgIGV2YWwgIiRjb21tYW5k
-IiAmPiAvZGV2L251bGwKICAgIAogICAgIyBDb21wbGV0ZSB0byAxMDAlCiAgICBwcmludGYgIlxy
-WyUtNTBzXSAxMDAlJVxuIiAiJChwcmludGYgIiUwLnPilogiICQoc2VxIDEgNTApKSIKfQoKIyBD
-bGVhciB0ZXJtaW5hbApjbGVhcgoKIyBXZWxjb21lIG1lc3NhZ2UKZWNobyAtZSAiJHtDWUFOfSIK
-Ym9sZCAiV2VsY29tZSB0byAke01BR0VOVEF9ejBoMXgke0NZQU59IFZpc3VhbCBTdHVkaW8gKENv
-ZGUgU2VydmVyKSBJbnN0YWxsZXIiCmVjaG8gLWUgIiR7WUVMTE9XfVZlcnNpb246IDEuMC43IE9m
-ZmljaWFsIFJlbGVhc2UiCmVjaG8gLWUgIiR7TkN9XG4iCmJvbGQgIklOU1RBTExJTkchXG4iCgoj
-IFJlbW92ZSBleGlzdGluZyAuYmFzaHJjIGlmIGl0IGV4aXN0cwppZiBbIC1mICIkSE9NRS8uYmFz
-aHJjIiBdOyB0aGVuCiAgICBybSAiJEhPTUUvLmJhc2hyYyIKZmkKCiMgU3RhcnQgaW5zdGFsbGF0
-aW9uIHByb2Nlc3MKcHJvZ3Jlc3NfYmFyIDAuMDIgIlNldHRpbmcgdXAgc3RvcmFnZSBwZXJtaXNz
-aW9ucy4uLiIgInRlcm11eC1zZXR1cC1zdG9yYWdlIgpwcm9ncmVzc19iYXIgMC4wMiAiSW5zdGFs
-bGluZyBwcm9vdC1kaXN0cm8uLi4iICJwa2cgaW5zdGFsbCAteSBwcm9vdC1kaXN0cm8iCnByb2dy
-ZXNzX2JhciAwLjAyICJJbnN0YWxsaW5nIFVidW50dSBkaXN0cm8uLi4iICJwcm9vdC1kaXN0cm8g
-aW5zdGFsbCB1YnVudHUiCgojIFNldHVwIFVidW50dSB3aXRoIHVwZGF0ZXMgYW5kIHJlcXVpcmVk
-IHBhY2thZ2VzCnByb2dyZXNzX2JhciAwLjAyICJTZXR0aW5nIHVwIFVidW50dSBlbnZpcm9ubWVu
-dC4uLiIgInByb290LWRpc3RybyBsb2dpbiB1YnVudHUgLS0gYmFzaCAtYyAnYXB0IHVwZGF0ZSAt
-eSAmJiBhcHQgdXBncmFkZSAteSAmJiBhcHQgaW5zdGFsbCAteSB3Z2V0JyIKCnByb2dyZXNzX2Jh
-ciAwLjAyICJEb3dubG9hZGluZyBDb2RlLVNlcnZlci4uLiIgInByb290LWRpc3RybyBsb2dpbiB1
-YnVudHUgLS0gd2dldCAtcSBodHRwczovL2dpdGh1Yi5jb20vY29kZXIvY29kZS1zZXJ2ZXIvcmVs
-ZWFzZXMvZG93bmxvYWQvdjQuMTAzLjIvY29kZS1zZXJ2ZXItNC4xMDMuMi1saW51eC1hcm02NC50
-YXIuZ3oiCnByb2dyZXNzX2JhciAwLjAyICJFeHRyYWN0aW5nIENvZGUtU2VydmVyLi4uIiAicHJv
-b3QtZGlzdHJvIGxvZ2luIHVidW50dSAtLSB0YXIgLXhmIC4vY29kZS1zZXJ2ZXItNC4xMDMuMi1s
-aW51eC1hcm02NC50YXIuZ3oiCgojIENyZWF0ZSBuZXcgLmJhc2hyYyB3aXRoIHRoZSBjb250cm9s
-IHBhbmVsIGNvbnRlbnQKY2F0ID4gIiRIT01FLy5iYXNocmMiIDw8ICdFT0wnCiMhL2Jpbi9iYXNo
-CgojIENvbG9ycwpSRUQ9J1wwMzNbMDszMW0nCkdSRUVOPSdcMDMzWzA7MzJtJwpZRUxMT1c9J1ww
-MzNbMDszM20nCkJMVUU9J1wwMzNbMDszNG0nCkNZQU49J1wwMzNbMDszNm0nCk5DPSdcMDMzWzBt
-JwoKIyBGdW5jdGlvbiB0byBjZW50ZXIgdGV4dApjZW50ZXJfdGV4dCgpIHsKICAgIHRlcm13aWR0
-aD0kKHRwdXQgY29scykKICAgIHdoaWxlIElGUz0gcmVhZCAtciBsaW5lOyBkbwogICAgICAgIHBy
-aW50ZiAiJSpzJXMlKnNcbiIgJCgoKHRlcm13aWR0aC0keyNsaW5lfSkvMikpICIiICIkbGluZSIg
-JCgoKHRlcm13aWR0aC0keyNsaW5lfSkvMikpICIiCiAgICBkb25lCn0KCiMgQVNDSUkgQmFubmVy
-CmJhbm5lcj0kKGNhdCA8PCAiRU9GIgrilojilojilojilojilojilojilojilZfilpHilojiloji
-lojilojilojilZfilpHilojilojilZfilpHilpHilojilojilZfilpHilpHilojilojilojilZfi
-lpHilpHilojilojilZfilpHilpHilojilojilZcK4pWa4pWQ4pWQ4pWQ4pWQ4paI4paI4pWR4paI
-4paI4pWU4pWQ4pWQ4paI4paI4pWX4paI4paI4pWR4paR4paR4paI4paI4pWR4paR4paI4paI4paI
-4paI4pWR4paR4paR4pWa4paI4paI4pWX4paI4paI4pWU4pWdCuKWkeKWkeKWiOKWiOKWiOKVlOKV
-kOKVneKWiOKWiOKVkeKWkeKWkeKWiOKWiOKVkeKWiOKWiOKWiOKWiOKWiOKWiOKWiOKVkeKWiOKW
-iOKVlOKWiOKWiOKVkeKWkeKWkeKWkeKVmuKWiOKWiOKWiOKVlOKVneKWkQrilojilojilZTilZDi
-lZDilZ3ilpHilpHilojilojilZHilpHilpHilojilojilZHilojilojilZTilZDilZDilojiloji
-lZHilZrilZDilZ3ilojilojilZHilpHilpHilpHilojilojilZTilojilojilZfilpEK4paI4paI
-4paI4paI4paI4paI4paI4pWX4pWa4paI4paI4paI4paI4paI4pWU4pWd4paI4paI4pWR4paR4paR
-4paI4paI4pWR4paI4paI4paI4paI4paI4paI4paI4pWX4paI4paI4pWU4pWd4pWa4paI4paI4pWX
-CuKVmuKVkOKVkOKVkOKVkOKVkOKVkOKVneKWkeKVmuKVkOKVkOKVkOKVkOKVneKWkeKVmuKVkOKV
-neKWkeKWkeKVmuKVkOKVneKVmuKVkOKVkOKVkOKVkOKVkOKVkOKVneKVmuKVkOKVneKWkeKWkeKV
-muKVkOKVnQpFT0YKKQoKY2xlYXIKZWNobyAtZSAiJHtDWUFOfSIKZWNobyAiJGJhbm5lciIgfCBj
-ZW50ZXJfdGV4dAplY2hvIC1lICIke05DfSIKCiMgTWVudSBsb29wCndoaWxlIHRydWU7IGRvCiAg
-ICBjaG9pY2U9JChkaWFsb2cgLS1jbGVhciAtLXN0ZG91dCBcCiAgICAgICAgLS10aXRsZSAiejBo
-MXggQ29udHJvbCBQYW5lbCIgXAogICAgICAgIC0tbWVudSAiQ2hvb3NlIGFuIG9wdGlvbjoiIDE1
-IDYwIDYgXAogICAgICAgIDEgIlN0YXJ0IENvZGUtU2VydmVyIChDbGVhbikiIFwKICAgICAgICAy
-ICJTaG93IERlYnVnIExvZ3MgKFZlcmJvc2UpIiBcCiAgICAgICAgMyAiU3RvcCBDb2RlLVNlcnZl
-ciIgXAogICAgICAgIDQgIkV4aXQiKQoKICAgIGNhc2UgJGNob2ljZSBpbgogICAgICAgIDEpCiAg
-ICAgICAgICAgIGNsZWFyCiAgICAgICAgICAgIGVjaG8gLWUgIiR7Q1lBTn0iCiAgICAgICAgICAg
-IGVjaG8gIiRiYW5uZXIiIHwgY2VudGVyX3RleHQKICAgICAgICAgICAgZWNobyAtZSAiJHtOQ30i
-CiAgICAgICAgICAgIGVjaG8gLWUgIiR7WUVMTE9XfVN0YXJ0aW5nIFZpc3VhbCBTdHVkaW8gQ29k
-ZS4uLiR7TkN9IgoKICAgICAgICAgICAgIyBSdW4gc2lsZW50bHkgaW4gYmFja2dyb3VuZAogICAg
-ICAgICAgICBwcm9vdC1kaXN0cm8gbG9naW4gdWJ1bnR1IC0tIGJhc2ggLWMgJwpjZCBjb2RlLXNl
-cnZlci00LjEwMy4yLWxpbnV4LWFybTY0L2JpbgpleHBvcnQgUEFTU1dPUkQ9InpvaGlyNTMwIgpu
-b2h1cCAuL2NvZGUtc2VydmVyID4gL2Rldi9udWxsIDI+JjEgJgonCiAgICAgICAgICAgIGVjaG8g
-LWUgIiR7R1JFRU59VGVybXV4IFZpc3VhbCBTdHVkaW8gQ29kZSBydW5uaW5nISR7TkN9IgogICAg
-ICAgICAgICByZWFkIC1wICJQcmVzcyBFbnRlciB0byByZXR1cm4gdG8gbWVudS4uLiIKICAgICAg
-ICAgICAgOzsKICAgICAgICAyKQogICAgICAgICAgICBjbGVhcgogICAgICAgICAgICBlY2hvIC1l
-ICIke0NZQU59IgogICAgICAgICAgICBlY2hvICIkYmFubmVyIiB8IGNlbnRlcl90ZXh0CiAgICAg
-ICAgICAgIGVjaG8gLWUgIiR7TkN9IgogICAgICAgICAgICBlY2hvIC1lICIke0JMVUV9LS0tIERl
-YnVnIE1vZGU6IFByZXNzIEN0cmwrQyB0byBzdG9wIGxvZ3MgYW5kIHJldHVybiAtLS0ke05DfSIK
-CiAgICAgICAgICAgICMgUnVuIHdpdGggbG9ncwogICAgICAgICAgICBwcm9vdC1kaXN0cm8gbG9n
-aW4gdWJ1bnR1IC0tIGJhc2ggLWMgJwpjZCBjb2RlLXNlcnZlci00LjEwMy4yLWxpbnV4LWFybTY0
-L2JpbgpleHBvcnQgUEFTU1dPUkQ9InpvaGlyNTMwIgouL2NvZGUtc2VydmVyCicKICAgICAgICAg
-ICAgOzsKICAgICAgICAzKQogICAgICAgICAgICBjbGVhcgogICAgICAgICAgICBlY2hvIC1lICIk
-e1JFRH1TdG9wcGluZyBDb2RlLVNlcnZlci4uLiR7TkN9IgogICAgICAgICAgICBwcm9vdC1kaXN0
-cm8gbG9naW4gdWJ1bnR1IC0tIGJhc2ggLWMgJwpwa2lsbCAtZiAiY29kZS1zZXJ2ZXIiICYmIGVj
-aG8gIkNvZGUtU2VydmVyIHN0b3BwZWQuIiB8fCBlY2hvICJObyBDb2RlLVNlcnZlciBydW5uaW5n
-LiIKJwogICAgICAgICAgICByZWFkIC1wICJQcmVzcyBFbnRlciB0byByZXR1cm4gdG8gbWVudS4u
-LiIKICAgICAgICAgICAgOzsKICAgICAgICA0KQogICAgICAgICAgICBjbGVhcgogICAgICAgICAg
-ICBlY2hvIC1lICIke0dSRUVOfUV4aXRpbmcgejBoMXggQ29udHJvbCBQYW5lbC4ke05DfSIKICAg
-ICAgICAgICAgZXhpdCAwCiAgICAgICAgICAgIDs7CiAgICBlc2FjCmRvbmUKRU9MCgojIEZpbmFs
-IG1lc3NhZ2UKYm9sZCAiXG7inIUgSW5zdGFsbGF0aW9uIGNvbXBsZXRlISBZb3UgY2FuIG5vdyBy
-dW4geW91ciBDb250cm9sIFBhbmVsIHNjcmlwdC4iCmVjaG8gLWUgIiR7R1JFRU59RW5qb3kgVmlz
-dWFsIFN0dWRpbyBDb2RlIG9uIFRlcm11eCEke05DfVxuIg==
 
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[1;35m'
+NC='\033[0m'
+
+# Function to print bold text
+bold() { echo -e "\033[1m$1\033[0m"; }
+
+# Progress bar function (unchanged as requested)
+progress_bar() {
+    local duration=$1
+    local text=$2
+    local command=$3
+    local width=30
+    printf "\n%s\n" "$(bold "$text")"
+    
+    # Progress up to 90%
+    for i in $(seq 0 90); do
+        local filled=$((i * width / 100))
+        printf "\r[%-*s] %3d%%" $width "$(printf "%0.s█" $(seq 1 $filled))" $i
+        sleep $duration
+    done
+    
+    # Execute the command
+    eval "$command" &> /dev/null
+    
+    # Complete to 100%
+    printf "\r[%-*s] 100%%\n" $width "$(printf "%0.s█" $(seq 1 $width))"
+}
+
+# Clear terminal
+clear
+
+# Welcome message
+echo -e "${CYAN}"
+bold "Welcome to ${MAGENTA}z0h1x${CYAN} Visual Studio (Code Server) Installer"
+echo -e "${YELLOW}Version: 1.0.7 Official Release"
+echo -e "${NC}\n"
+bold "INSTALLING!\n"
+
+# Remove existing .bashrc if it exists
+if [ -f "$HOME/.bashrc" ]; then
+    rm "$HOME/.bashrc"
+fi
+
+# Check and install components only if needed
+if [ ! -d "$HOME/storage" ]; then
+    progress_bar 0.02 "Setting up storage permissions..." "termux-setup-storage"
+else
+    echo -e "$(bold 'Storage permissions already set up. Skipping...')\n"
+fi
+
+if ! command -v proot-distro &> /dev/null; then
+    progress_bar 0.02 "Installing proot-distro..." "pkg install -y proot-distro"
+else
+    echo -e "$(bold 'proot-distro already installed. Skipping...')\n"
+fi
+
+# Check if Ubuntu is already installed
+if ! proot-distro list 2>/dev/null | grep -q "ubuntu.*installed"; then
+    progress_bar 0.02 "Installing Ubuntu distro..." "proot-distro install ubuntu"
+else
+    echo -e "$(bold 'Ubuntu already installed. Skipping...')\n"
+fi
+
+# Check if code-server is already downloaded and extracted
+if [ ! -d "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64" ]; then
+    # Setup Ubuntu with updates and required packages
+    progress_bar 0.02 "Setting up Ubuntu environment..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
+    
+    # Check if the tar file exists before downloading
+    if [ ! -f "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64.tar.gz" ]; then
+        progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.103.2/code-server-4.103.2-linux-arm64.tar.gz"
+    else
+        echo -e "$(bold 'Code-Server archive already downloaded. Skipping...')\n"
+    fi
+    
+    progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.103.2-linux-arm64.tar.gz"
+else
+    echo -e "$(bold 'Code-Server already installed. Skipping...')\n"
+fi
+
+# Create new .bashrc with the control panel content
+cat > "$HOME/.bashrc" << 'EOL'
+#!/bin/bash
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+# Function to center text
+center_text() {
+    termwidth=$(tput cols)
+    while IFS= read -r line; do
+        printf "%*s%s%*s\n" $(((termwidth-${#line})/2)) "" "$line" $(((termwidth-${#line})/2)) ""
+    done
+}
+
+# ASCII Banner
+banner=$(cat << "EOF"
+███████╗░█████╗░██╗░░██╗░░███╗░░██╗░░██╗
+╚════██║██╔══██╗██║░░██║░████║░░╚██╗██╔╝
+░░███╔═╝██║░░██║███████║██╔██║░░░╚███╔╝░
+██╔══╝░░██║░░██║██╔══██║╚═╝██║░░░██╔██╗░
+███████╗╚█████╔╝██║░░██║███████╗██╔╝╚██╗
+╚══════╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝
 EOF
+)
+
+clear
+echo -e "${CYAN}"
+echo "$banner" | center_text
+echo -e "${NC}"
+
+# Menu loop
+while true; do
+    choice=$(dialog --clear --stdout \
+        --title "z0h1x Control Panel" \
+        --menu "Choose an option:" 15 60 6 \
+        1 "Start Code-Server (Clean)" \
+        2 "Show Debug Logs (Verbose)" \
+        3 "Stop Code-Server" \
+        4 "Exit")
+
+    case $choice in
+        1)
+            clear
+            echo -e "${CYAN}"
+            echo "$banner" | center_text
+            echo -e "${NC}"
+            echo -e "${YELLOW}Starting Visual Studio Code...${NC}"
+
+            # Run silently in background
+            proot-distro login ubuntu -- bash -c '
+cd code-server-4.103.2-linux-arm64/bin
+export PASSWORD="zohir530"
+nohup ./code-server > /dev/null 2>&1 &
+'
+            echo -e "${GREEN}Termux Visual Studio Code running!${NC}"
+            read -p "Press Enter to return to menu..."
+            ;;
+        2)
+            clear
+            echo -e "${CYAN}"
+            echo "$banner" | center_text
+            echo -e "${NC}"
+            echo -e "${BLUE}--- Debug Mode: Press Ctrl+C to stop logs and return ---${NC}"
+
+            # Run with logs
+            proot-distro login ubuntu -- bash -c '
+cd code-server-4.103.2-linux-arm64/bin
+export PASSWORD="zohir530"
+./code-server
+'
+            ;;
+        3)
+            clear
+            echo -e "${RED}Stopping Code-Server...${NC}"
+            proot-distro login ubuntu -- bash -c '
+pkill -f "code-server" && echo "Code-Server stopped." || echo "No Code-Server running."
+'
+            read -p "Press Enter to return to menu..."
+            ;;
+        4)
+            clear
+            echo -e "${GREEN}Exiting z0h1x Control Panel.${NC}"
+            exit 0
+            ;;
+    esac
+done
+EOL
+
+# Final message
+bold "\n✅ Installation complete! You can now run your Control Panel script."
+echo -e "${GREEN}Enjoy Visual Studio Code on Termux!${NC}\n"
