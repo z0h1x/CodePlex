@@ -1,4 +1,4 @@
-# CodePlex 😼
+# CodePlex v2.2 😼
 
 **CodePlex** is a simple installer for Visual Studio Code (Code-Server) on Termux. Get your dev environment up and running in minutes, straight from your terminal.
 
@@ -37,14 +37,14 @@ pkg upgrade
 
 # Download and run the installer
 ```bash
-curl -fsSL https://raw.githubusercontent.com/z0h1x/CodePlex/main/installer.sh | bash
+curl -fsSL https://raw.githubusercontent.com/z0h1x/termux-vs-code/main/installer.sh | bash
 ```
 # Last step !
 -# if the installer finished the installation type in termux
 ```bash
-exit
+vscode
 ```
-#- and click enter then join termux again you will see a blue select menu 
+#- and click enter then Enjoy 🥳
 
 ## Enjoy your coding journey in **browser** 😼
 
