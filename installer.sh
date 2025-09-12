@@ -40,14 +40,9 @@ clear
 # Welcome message
 echo -e "${CYAN}"
 bold "Welcome to ${MAGENTA}z0h1x${CYAN} Visual Studio (Code Server) Installer"
-echo -e "${YELLOW}Version: 1.0.7 Official Release"
+echo -e "${YELLOW}Version: 1.0.8 Official Release"
 echo -e "${NC}\n"
 bold "INSTALLING!\n"
-
-# Remove existing .bashrc if it exists
-if [ -f "$HOME/.bashrc" ]; then
-    rm "$HOME/.bashrc"
-fi
 
 # Check and install components only if needed
 if [ ! -d "$HOME/storage" ]; then
@@ -65,14 +60,15 @@ fi
 
 # Check if code-server is already installed
 if [ ! -d "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64" ]; then
-    progress_bar 0.02 "Setting up Ubuntu environment..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
+    progress_bar 0.02 "Setting up Ubuntu environment..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget dialog'"
     progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.103.2/code-server-4.103.2-linux-arm64.tar.gz"
     progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.103.2-linux-arm64.tar.gz"
 fi
 
-# Create new .bashrc with the control panel content
-cat > "$HOME/.bashrc" << 'EOL'
+# Create vscode launcher script
+cat > "$PREFIX/bin/vscode" << 'EOL'
 #!/bin/bash
+# z0h1x VSCode Control Panel
 
 # Colors
 RED='\033[0;31m'
@@ -164,6 +160,8 @@ pkill -f "code-server" && echo "Code-Server stopped." || echo "No Code-Server ru
 done
 EOL
 
+chmod +x "$PREFIX/bin/vscode"
+
 # Final message
-bold "\n✅ Installation complete! You can now run your Control Panel script."
+bold "\n✅ Installation complete! Type 'vscode' to launch the Control Panel."
 echo -e "${GREEN}Enjoy Visual Studio Code on Termux!${NC}\n"
