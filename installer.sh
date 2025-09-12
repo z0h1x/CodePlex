@@ -12,7 +12,7 @@ NC='\033[0m'
 # Function to print bold text
 bold() { echo -e "\033[1m$1\033[0m"; }
 
-# Progress bar function (30 chars wide, clean)
+# Progress bar (30 chars wide)
 progress_bar() {
     local duration=$1
     local text=$2
@@ -20,27 +20,22 @@ progress_bar() {
     local width=30
     printf "\n%s\n" "$(bold "$text")"
     
-    # Progress up to 90%
     for i in $(seq 0 90); do
         local filled=$((i * width / 100))
         printf "\r\033[K[%-*s] %3d%%" $width "$(printf "%0.s█" $(seq 1 $filled))" $i
         sleep $duration
     done
     
-    # Execute the command silently
     eval "$command" &> /dev/null
     
-    # Complete to 100%
     printf "\r\033[K[%-*s] ${GREEN}DONE${NC}\n" $width "$(printf "%0.s█" $(seq 1 $width))"
 }
 
 # Clear terminal
 clear
-
-# Welcome message
 echo -e "${CYAN}"
 bold "Welcome to ${MAGENTA}z0h1x${CYAN} Visual Studio (Code Server) Installer"
-echo -e "${YELLOW}Version: 1.0.9 Official Release"
+echo -e "${YELLOW}Version: 2.0 Official Release"
 echo -e "${NC}\n"
 bold "INSTALLING!\n"
 
@@ -48,36 +43,29 @@ bold "INSTALLING!\n"
 if ! command -v proot-distro &> /dev/null; then
     progress_bar 0.02 "Installing proot-distro..." "pkg install -y proot-distro"
 fi
-
 if ! command -v dialog &> /dev/null; then
     progress_bar 0.02 "Installing dialog..." "pkg install -y dialog"
 fi
 
-# Check if Ubuntu is already installed
+# Install Ubuntu if not installed
 if ! proot-distro list 2>/dev/null | grep -q "ubuntu.*installed"; then
     progress_bar 0.02 "Installing Ubuntu distro..." "proot-distro install ubuntu"
 fi
 
-# Install code-server inside ubuntu if missing
+# Install code-server if missing
 if [ ! -d "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64" ]; then
-    progress_bar 0.02 "Setting up Ubuntu environment..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
+    progress_bar 0.02 "Updating Ubuntu packages..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
     progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.103.2/code-server-4.103.2-linux-arm64.tar.gz"
     progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.103.2-linux-arm64.tar.gz"
 fi
 
-# Write full menu into ~/zohir
+# === Create ~/zohir menu file ===
 cat > "$HOME/zohir" << 'EOL'
 #!/bin/bash
+# z0h1x VSCode Control Panel
 
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-NC='\033[0m'
+RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[0;33m'; BLUE='\033[0;34m'; CYAN='\033[0;36m'; NC='\033[0m'
 
-# Function to center text
 center_text() {
     termwidth=$(tput cols)
     while IFS= read -r line; do
@@ -85,7 +73,6 @@ center_text() {
     done
 }
 
-# ASCII Banner
 banner=$(cat << "EOF"
 ███████╗░█████╗░██╗░░██╗░░███╗░░██╗░░██╗
 ╚════██║██╔══██╗██║░░██║░████║░░╚██╗██╔╝
@@ -96,13 +83,9 @@ banner=$(cat << "EOF"
 EOF
 )
 
-clear
-echo -e "${CYAN}"
-echo "$banner" | center_text
-echo -e "${NC}"
-
-# Menu loop
 while true; do
+    clear
+    echo -e "${CYAN}"; echo "$banner" | center_text; echo -e "${NC}"
     choice=$(dialog --clear --stdout \
         --title "z0h1x Control Panel" \
         --menu "Choose an option:" 15 60 6 \
@@ -114,28 +97,18 @@ while true; do
     case $choice in
         1)
             clear
-            echo -e "${CYAN}"
-            echo "$banner" | center_text
-            echo -e "${NC}"
             echo -e "${YELLOW}Starting Visual Studio Code...${NC}"
-
-            # Run silently in background
             proot-distro login ubuntu -- bash -c '
 cd code-server-4.103.2-linux-arm64/bin
 export PASSWORD="zohir530"
 nohup ./code-server > /dev/null 2>&1 &
 '
-            echo -e "${GREEN}Termux Visual Studio Code running!${NC}"
-            read -p "Press Enter to return to menu..."
+            echo -e "${GREEN}Code-Server running in background!${NC}"
+            read -p "Press Enter to return..."
             ;;
         2)
             clear
-            echo -e "${CYAN}"
-            echo "$banner" | center_text
-            echo -e "${NC}"
-            echo -e "${BLUE}--- Debug Mode: Press Ctrl+C to stop logs and return ---${NC}"
-
-            # Run with logs
+            echo -e "${BLUE}--- Debug Mode (Ctrl+C to stop) ---${NC}"
             proot-distro login ubuntu -- bash -c '
 cd code-server-4.103.2-linux-arm64/bin
 export PASSWORD="zohir530"
@@ -146,13 +119,13 @@ export PASSWORD="zohir530"
             clear
             echo -e "${RED}Stopping Code-Server...${NC}"
             proot-distro login ubuntu -- bash -c '
-pkill -f "code-server" && echo "Code-Server stopped." || echo "No Code-Server running."
+pkill -f "code-server" && echo "Stopped." || echo "No process found."
 '
-            read -p "Press Enter to return to menu..."
+            read -p "Press Enter to return..."
             ;;
         4)
             clear
-            echo -e "${GREEN}Exiting z0h1x Control Panel.${NC}"
+            echo -e "${GREEN}Exiting Control Panel.${NC}"
             exit 0
             ;;
     esac
@@ -161,14 +134,14 @@ EOL
 
 chmod +x "$HOME/zohir"
 
-# Create vscode launcher command
+# === Create vscode launcher in $PREFIX/bin ===
 cat > "$PREFIX/bin/vscode" << EOL
 #!/bin/bash
-bash \$HOME/zohir
+bash "$HOME/zohir"
 EOL
 
 chmod +x "$PREFIX/bin/vscode"
 
 # Final message
 bold "\n✅ Installation complete!"
-echo -e "${GREEN}Type 'vscode' to open the Control Panel menu.${NC}\n"
+echo -e "${GREEN}Type 'vscode' to launch your Control Panel.${NC}\n"
