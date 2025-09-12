@@ -12,7 +12,7 @@ NC='\033[0m'
 # Function to print bold text
 bold() { echo -e "\033[1m$1\033[0m"; }
 
-# Progress bar function (unchanged as requested)
+# Progress bar function (30 chars wide, clean)
 progress_bar() {
     local duration=$1
     local text=$2
@@ -23,15 +23,15 @@ progress_bar() {
     # Progress up to 90%
     for i in $(seq 0 90); do
         local filled=$((i * width / 100))
-        printf "\r[%-*s] %3d%%" $width "$(printf "%0.s█" $(seq 1 $filled))" $i
+        printf "\r\033[K[%-*s] %3d%%" $width "$(printf "%0.s█" $(seq 1 $filled))" $i
         sleep $duration
     done
     
-    # Execute the command
+    # Execute the command silently
     eval "$command" &> /dev/null
     
     # Complete to 100%
-    printf "\r[%-*s] 100%%\n" $width "$(printf "%0.s█" $(seq 1 $width))"
+    printf "\r\033[K[%-*s] ${GREEN}DONE${NC}\n" $width "$(printf "%0.s█" $(seq 1 $width))"
 }
 
 # Clear terminal
@@ -52,38 +52,22 @@ fi
 # Check and install components only if needed
 if [ ! -d "$HOME/storage" ]; then
     progress_bar 0.02 "Setting up storage permissions..." "termux-setup-storage"
-else
-    echo -e "$(bold 'Storage permissions already set up. Skipping...')\n"
 fi
 
 if ! command -v proot-distro &> /dev/null; then
     progress_bar 0.02 "Installing proot-distro..." "pkg install -y proot-distro"
-else
-    echo -e "$(bold 'proot-distro already installed. Skipping...')\n"
 fi
 
 # Check if Ubuntu is already installed
 if ! proot-distro list 2>/dev/null | grep -q "ubuntu.*installed"; then
     progress_bar 0.02 "Installing Ubuntu distro..." "proot-distro install ubuntu"
-else
-    echo -e "$(bold 'Ubuntu already installed. Skipping...')\n"
 fi
 
-# Check if code-server is already downloaded and extracted
+# Check if code-server is already installed
 if [ ! -d "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64" ]; then
-    # Setup Ubuntu with updates and required packages
     progress_bar 0.02 "Setting up Ubuntu environment..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
-    
-    # Check if the tar file exists before downloading
-    if [ ! -f "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64.tar.gz" ]; then
-        progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.103.2/code-server-4.103.2-linux-arm64.tar.gz"
-    else
-        echo -e "$(bold 'Code-Server archive already downloaded. Skipping...')\n"
-    fi
-    
+    progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.103.2/code-server-4.103.2-linux-arm64.tar.gz"
     progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.103.2-linux-arm64.tar.gz"
-else
-    echo -e "$(bold 'Code-Server already installed. Skipping...')\n"
 fi
 
 # Create new .bashrc with the control panel content
