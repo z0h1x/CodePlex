@@ -47,6 +47,7 @@ vscode
 ```
 
 #- click enter and go to **[local host](http://localhost:8080/)** 🥳
+
 #- Password is : **zohir530**
 
 
