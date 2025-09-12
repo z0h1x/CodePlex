@@ -5,7 +5,6 @@ HOME_DIR="/data/data/com.termux/files/home"
 BIN_DIR="/data/data/com.termux/files/usr/bin"
 
 # Colors
-RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
@@ -27,14 +26,14 @@ progress_bar() {
     printf "\r\033[K[%-*s] ${GREEN}DONE${NC}\n" $width "$(printf "%0.s█" $(seq 1 $width))"
 }
 
-# Welcome
+# Clear
 clear
 echo -e "${CYAN}"
 bold "Welcome to ${MAGENTA}z0h1x${CYAN} Visual Studio (Code Server) Installer"
-echo -e "${YELLOW}Version: 2.1 Official Release${NC}\n"
+echo -e "${YELLOW}Version: 2.2 Official Release${NC}\n"
 bold "INSTALLING!\n"
 
-# Ensure deps
+# Install deps in Termux
 if ! command -v proot-distro &>/dev/null; then
     progress_bar 0.02 "Installing proot-distro..." "pkg install -y proot-distro"
 fi
@@ -42,19 +41,19 @@ if ! command -v dialog &>/dev/null; then
     progress_bar 0.02 "Installing dialog..." "pkg install -y dialog"
 fi
 
-# Ensure Ubuntu
+# Install Ubuntu inside proot
 if ! proot-distro list 2>/dev/null | grep -q "ubuntu.*installed"; then
     progress_bar 0.02 "Installing Ubuntu distro..." "proot-distro install ubuntu"
 fi
 
-# Ensure code-server inside Ubuntu
+# Install code-server inside Ubuntu
 if [ ! -d "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64" ]; then
     progress_bar 0.02 "Updating Ubuntu..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
     progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.103.2/code-server-4.103.2-linux-arm64.tar.gz"
     progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.103.2-linux-arm64.tar.gz"
 fi
 
-# === Create ~/zohir menu file ===
+# === Create menu script in Termux (~/zohir) ===
 MENU_FILE="$HOME_DIR/zohir"
 cat > "$MENU_FILE" << 'EOL'
 #!/bin/bash
@@ -130,7 +129,7 @@ EOL
 
 chmod +x "$MENU_FILE"
 
-# === Create vscode launcher ===
+# === Create vscode launcher in Termux ===
 LAUNCHER="$BIN_DIR/vscode"
 cat > "$LAUNCHER" << EOL
 #!/bin/bash
@@ -138,15 +137,6 @@ bash "$MENU_FILE"
 EOL
 chmod +x "$LAUNCHER"
 
-# Double-check creation
-if [ ! -f "$MENU_FILE" ]; then
-    echo -e "${RED}Failed to create menu automatically.${NC}"
-    echo -e "${YELLOW}Opening nano so you can paste it manually...${NC}"
-    sleep 2
-    nano "$MENU_FILE"
-    chmod +x "$MENU_FILE"
-fi
-
-# Done
+# Final message
 bold "\n✅ Installation complete!"
 echo -e "${GREEN}Type 'vscode' to launch your Control Panel menu.${NC}\n"
