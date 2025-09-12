@@ -40,13 +40,21 @@ pkg upgrade
 curl -fsSL https://raw.githubusercontent.com/z0h1x/termux-vs-code/main/installer.sh | bash
 ```
 # Last step !
--# if the installer finished the installation type in termux
+-# if the installer finished the installation 
+# To run your Visual studio code type
 ```bash
 vscode
 ```
-#- and click enter then Enjoy 🥳
 
-## Enjoy your coding journey in **browser** 😼
+#- click enter and go to **[local host](http://localhost:8080/)** 🥳
+
+
+
+
+
+
+
+## Enjoy your coding journey in your **browser** 😼
 
 ## Authors
 
