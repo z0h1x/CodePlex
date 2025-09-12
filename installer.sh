@@ -1,66 +1,62 @@
 #!/bin/bash
 
+# Paths
+HOME_DIR="/data/data/com.termux/files/home"
+BIN_DIR="/data/data/com.termux/files/usr/bin"
+
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 MAGENTA='\033[1;35m'
 NC='\033[0m'
 
-# Function to print bold text
 bold() { echo -e "\033[1m$1\033[0m"; }
 
-# Progress bar (30 chars wide)
+# Progress bar (clean + 30 chars wide)
 progress_bar() {
-    local duration=$1
-    local text=$2
-    local command=$3
-    local width=30
+    local duration=$1 text=$2 command=$3 width=30
     printf "\n%s\n" "$(bold "$text")"
-    
     for i in $(seq 0 90); do
         local filled=$((i * width / 100))
         printf "\r\033[K[%-*s] %3d%%" $width "$(printf "%0.s█" $(seq 1 $filled))" $i
         sleep $duration
     done
-    
     eval "$command" &> /dev/null
-    
     printf "\r\033[K[%-*s] ${GREEN}DONE${NC}\n" $width "$(printf "%0.s█" $(seq 1 $width))"
 }
 
-# Clear terminal
+# Welcome
 clear
 echo -e "${CYAN}"
 bold "Welcome to ${MAGENTA}z0h1x${CYAN} Visual Studio (Code Server) Installer"
-echo -e "${YELLOW}Version: 2.0 Official Release"
-echo -e "${NC}\n"
+echo -e "${YELLOW}Version: 2.1 Official Release${NC}\n"
 bold "INSTALLING!\n"
 
-# Install dependencies
-if ! command -v proot-distro &> /dev/null; then
+# Ensure deps
+if ! command -v proot-distro &>/dev/null; then
     progress_bar 0.02 "Installing proot-distro..." "pkg install -y proot-distro"
 fi
-if ! command -v dialog &> /dev/null; then
+if ! command -v dialog &>/dev/null; then
     progress_bar 0.02 "Installing dialog..." "pkg install -y dialog"
 fi
 
-# Install Ubuntu if not installed
+# Ensure Ubuntu
 if ! proot-distro list 2>/dev/null | grep -q "ubuntu.*installed"; then
     progress_bar 0.02 "Installing Ubuntu distro..." "proot-distro install ubuntu"
 fi
 
-# Install code-server if missing
+# Ensure code-server inside Ubuntu
 if [ ! -d "$(proot-distro login ubuntu -- bash -c 'echo $HOME')/code-server-4.103.2-linux-arm64" ]; then
-    progress_bar 0.02 "Updating Ubuntu packages..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
+    progress_bar 0.02 "Updating Ubuntu..." "proot-distro login ubuntu -- bash -c 'apt update -y && apt upgrade -y && apt install -y wget'"
     progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.103.2/code-server-4.103.2-linux-arm64.tar.gz"
     progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.103.2-linux-arm64.tar.gz"
 fi
 
 # === Create ~/zohir menu file ===
-cat > "$HOME/zohir" << 'EOL'
+MENU_FILE="$HOME_DIR/zohir"
+cat > "$MENU_FILE" << 'EOL'
 #!/bin/bash
 # z0h1x VSCode Control Panel
 
@@ -132,16 +128,25 @@ pkill -f "code-server" && echo "Stopped." || echo "No process found."
 done
 EOL
 
-chmod +x "$HOME/zohir"
+chmod +x "$MENU_FILE"
 
-# === Create vscode launcher in $PREFIX/bin ===
-cat > "$PREFIX/bin/vscode" << EOL
+# === Create vscode launcher ===
+LAUNCHER="$BIN_DIR/vscode"
+cat > "$LAUNCHER" << EOL
 #!/bin/bash
-bash "$HOME/zohir"
+bash "$MENU_FILE"
 EOL
+chmod +x "$LAUNCHER"
 
-chmod +x "$PREFIX/bin/vscode"
+# Double-check creation
+if [ ! -f "$MENU_FILE" ]; then
+    echo -e "${RED}Failed to create menu automatically.${NC}"
+    echo -e "${YELLOW}Opening nano so you can paste it manually...${NC}"
+    sleep 2
+    nano "$MENU_FILE"
+    chmod +x "$MENU_FILE"
+fi
 
-# Final message
+# Done
 bold "\n✅ Installation complete!"
-echo -e "${GREEN}Type 'vscode' to launch your Control Panel.${NC}\n"
+echo -e "${GREEN}Type 'vscode' to launch your Control Panel menu.${NC}\n"
