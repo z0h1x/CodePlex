@@ -93,7 +93,7 @@ while true; do
             clear
             echo -e "${YELLOW}Starting Visual Studio Code...${NC}"
             proot-distro login ubuntu -- bash -c '
-cd code-server-4.103.2-linux-arm64/bin
+cd code-server-4.104.3-linux-arm64/bin
 export PASSWORD="zohir530"
 nohup ./code-server > /dev/null 2>&1 &
 '
