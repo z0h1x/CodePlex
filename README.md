@@ -1,4 +1,4 @@
-# CodePlex v2.2 😼
+# CodePlex 4.104.3 😼
 
 **CodePlex** is a simple installer for Visual Studio Code (Code-Server) on Termux. Get your dev environment up and running in minutes, straight from your terminal.
 
@@ -10,7 +10,7 @@
 
 - Easy installation process 
 - User Friendly
-- Fully updated 
+- Fully updated to CodeServer 4.103.3
 - android 7+
 
 ---
