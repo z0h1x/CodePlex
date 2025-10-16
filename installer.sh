@@ -19,18 +19,18 @@ progress_bar() {
     printf "\n%s\n" "$(bold "$text")"
     for i in $(seq 0 90); do
         local filled=$((i * width / 100))
-        printf "\r\033[K[%-*s] %3d%%" $width "$(printf "%0.sÔûê" $(seq 1 $filled))" $i
+        printf "\r\033[K[%-*s] %3d%%" $width "$(printf "%0.s█" $(seq 1 $filled))" $i
         sleep $duration
     done
     eval "$command" &> /dev/null
-    printf "\r\033[K[%-*s] ${GREEN}DONE${NC}\n" $width "$(printf "%0.sÔûê" $(seq 1 $width))"
+    printf "\r\033[K[%-*s] ${GREEN}DONE${NC}\n" $width "$(printf "%0.s█" $(seq 1 $width))"
 }
 
 # Welcome
 clear
 echo -e "${CYAN}"
 bold "Welcome to ${MAGENTA}z0h1x${CYAN} Visual Studio (Code Server) Installer"
-echo -e "${YELLOW}Version: 2.2 Official Release${NC}\n"
+echo -e "${YELLOW}Version: 4.104.3 Official Release${NC}\n"
 bold "INSTALLING!\n"
 
 # Installation 
@@ -68,12 +68,12 @@ center_text() {
 }
 
 banner=$(cat << "EOF"
-ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔòùÔûæÔûêÔûêÔûêÔûêÔûêÔòùÔûæÔûêÔûêÔòùÔûæÔûæÔûêÔûêÔòùÔûæÔûæÔûêÔûêÔûêÔòùÔûæÔûæÔûêÔûêÔòùÔûæÔûæÔûêÔûêÔòù
-ÔòÜÔòÉÔòÉÔòÉÔòÉÔûêÔûêÔòæÔûêÔûêÔòöÔòÉÔòÉÔûêÔûêÔòùÔûêÔûêÔòæÔûæÔûæÔûêÔûêÔòæÔûæÔûêÔûêÔûêÔûêÔòæÔûæÔûæÔòÜÔûêÔûêÔòùÔûêÔûêÔòöÔòØ
-ÔûæÔûæÔûêÔûêÔûêÔòöÔòÉÔòØÔûêÔûêÔòæÔûæÔûæÔûêÔûêÔòæÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔòæÔûêÔûêÔòöÔûêÔûêÔòæÔûæÔûæÔûæÔòÜÔûêÔûêÔûêÔòöÔòØÔûæ
-ÔûêÔûêÔòöÔòÉÔòÉÔòØÔûæÔûæÔûêÔûêÔòæÔûæÔûæÔûêÔûêÔòæÔûêÔûêÔòöÔòÉÔòÉÔûêÔûêÔòæÔòÜÔòÉÔòØÔûêÔûêÔòæÔûæÔûæÔûæÔûêÔûêÔòöÔûêÔûêÔòùÔûæ
-ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔòùÔòÜÔûêÔûêÔûêÔûêÔûêÔòöÔòØÔûêÔûêÔòæÔûæÔûæÔûêÔûêÔòæÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔòùÔûêÔûêÔòöÔòØÔòÜÔûêÔûêÔòù
-ÔòÜÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòØÔûæÔòÜÔòÉÔòÉÔòÉÔòÉÔòØÔûæÔòÜÔòÉÔòØÔûæÔûæÔòÜÔòÉÔòØÔòÜÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòØÔòÜÔòÉÔòØÔûæÔûæÔòÜÔòÉÔòØ
+███████╗░█████╗░██╗░░██╗░░███╗░░██╗░░██╗
+╚════██║██╔══██╗██║░░██║░████║░░╚██╗██╔╝
+░░███╔═╝██║░░██║███████║██╔██║░░░╚███╔╝░
+██╔══╝░░██║░░██║██╔══██║╚═╝██║░░░██╔██╗░
+███████╗╚█████╔╝██║░░██║███████╗██╔╝╚██╗
+╚══════╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝
 EOF
 )
 
@@ -134,5 +134,5 @@ cat > "$LAUNCHER" << EOL
 bash "$MENU_FILE"
 EOL
 chmod +x "$LAUNCHER"
-bold "\nÔ£à Installation complete!"
+bold "\n✅ Installation complete!"
 echo -e "${GREEN}Type 'vscode' to launch your Control Panel menu.${NC}\n"
