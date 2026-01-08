@@ -104,7 +104,7 @@ nohup ./code-server > /dev/null 2>&1 &
             clear
             echo -e "${BLUE}--- Debug Mode (Ctrl+C to stop) ---${NC}"
             proot-distro login ubuntu -- bash -c '
-cd ccode-server-4.107.0-linux-arm64/bin
+cd code-server-4.107.0-linux-arm64/bin
 export PASSWORD="zohir530"
 ./code-server
 '
