@@ -48,8 +48,8 @@ fi
 
 # Code Server Installation
 progress_bar 0.02 "Updating Ubuntu..." "proot-distro login ubuntu -- apt update -y && proot-distro login ubuntu -- apt upgrade -y && proot-distro login ubuntu -- apt install -y wget"
-progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.104.3/code-server-4.104.3-linux-arm64.tar.gz"
-progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.104.3-linux-arm64.tar.gz"
+progress_bar 0.02 "Downloading Code-Server..." "proot-distro login ubuntu -- wget -q https://github.com/coder/code-server/releases/download/v4.107.0/code-server-4.107.0-linux-arm64.tar.gz"
+progress_bar 0.02 "Extracting Code-Server..." "proot-distro login ubuntu -- tar -xf ./code-server-4.107.0-linux-arm64.tar.gz"
 progress_bar 0.02 "Exiting Ubuntu..." "proot-distro login ubuntu -- exit"
 
 # Create menu script in Termux (~/zohir)
@@ -93,7 +93,7 @@ while true; do
             clear
             echo -e "${YELLOW}Starting Visual Studio Code...${NC}"
             proot-distro login ubuntu -- bash -c '
-cd code-server-4.104.3-linux-arm64/bin
+cd code-server-4.107.0-linux-arm64/bin
 export PASSWORD="zohir530"
 nohup ./code-server > /dev/null 2>&1 &
 '
@@ -104,7 +104,7 @@ nohup ./code-server > /dev/null 2>&1 &
             clear
             echo -e "${BLUE}--- Debug Mode (Ctrl+C to stop) ---${NC}"
             proot-distro login ubuntu -- bash -c '
-cd code-server-4.104.3-linux-arm64/bin
+cd ccode-server-4.107.0-linux-arm64/bin
 export PASSWORD="zohir530"
 ./code-server
 '
