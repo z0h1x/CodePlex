@@ -31,7 +31,10 @@ progress_bar() {
         sleep "$duration"
     done
     echo
-    eval "$command" || { echo -e "${RED}❌ Failed: $text${NC}"; exit 1; }
+    if ! eval "$command"; then
+        echo -e "${RED}❌ Failed: $text${NC}"
+        exit 1
+    fi
     echo -e "${GREEN}✔ Done${NC}\n"
 }
 
@@ -42,16 +45,25 @@ bold "Welcome to ${MAGENTA}z0h1x${CYAN} VS Code (Code-Server) Installer"
 echo -e "${YELLOW}Version: ${CS_VERSION}${NC}\n"
 bold "INSTALLING...\n"
 
-# ===================== TERMUX SETUP =====================
-command -v proot-distro &>/dev/null || \
+# ===================== TERMUX DEPS =====================
+if ! command -v proot-distro &>/dev/null; then
     progress_bar 0.01 "Installing proot-distro" "pkg install -y proot-distro"
+else
+    echo -e "${GREEN}✔ proot-distro already installed${NC}\n"
+fi
 
-command -v dialog &>/dev/null || \
+if ! command -v dialog &>/dev/null; then
     progress_bar 0.01 "Installing dialog" "pkg install -y dialog"
+else
+    echo -e "${GREEN}✔ dialog already installed${NC}\n"
+fi
 
 # ===================== UBUNTU =====================
-proot-distro list | grep -q "ubuntu.*installed" || \
+if proot-distro list 2>/dev/null | grep -q "^ubuntu .*installed"; then
+    echo -e "${GREEN}✔ Ubuntu already installed — skipping${NC}\n"
+else
     progress_bar 0.01 "Installing Ubuntu" "proot-distro install ubuntu"
+fi
 
 # ===================== CODE SERVER =====================
 progress_bar 0.01 "Setting up Code-Server" "
@@ -61,9 +73,12 @@ apt update -y
 apt upgrade -y
 apt install -y wget tar
 cd ~
-rm -rf ${CS_DIR}
-wget -q ${CS_URL}
-tar -xf ${CS_DIR}.tar.gz
+if [ ! -d \"$CS_DIR\" ]; then
+    wget -q \"$CS_URL\"
+    tar -xf \"$CS_DIR.tar.gz\"
+else
+    echo \"Code-server already exists, skipping download\"
+fi
 '
 "
 
@@ -105,7 +120,7 @@ while true; do
 
     choice=\$(dialog --stdout --menu "z0h1x Control Panel" 15 60 6 \
         1 "Start VS Code" \
-        2 "Debug Mode (Logs)" \
+        2 "Debug Mode (Verbose)" \
         3 "Stop VS Code" \
         4 "Exit")
 
@@ -119,7 +134,7 @@ export PASSWORD=\$PASSWORD
 nohup ./code-server > ~/code-server.log 2>&1 &
 "
             echo -e "\${GREEN}Running → http://localhost:8080\${NC}"
-            read -p "Press Enter..."
+            read -p 'Press Enter...'
             ;;
         2)
             clear
@@ -134,7 +149,7 @@ export PASSWORD=\$PASSWORD
             clear
             echo -e "\${RED}Stopping VS Code...\${NC}"
             proot-distro login ubuntu -- pkill -f code-server && echo "Stopped." || echo "Not running."
-            read -p "Press Enter..."
+            read -p 'Press Enter...'
             ;;
         4)
             clear
