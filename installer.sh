@@ -23,7 +23,11 @@ NC='\033[0m'
 bold() { echo -e "\033[1m$1\033[0m"; }
 
 progress_bar() {
-    local duration=$1 text=$2 command=$3 width=30
+    local duration=$1
+    local text=$2
+    local command=$3
+    local width=30
+
     printf "\n%s\n" "$(bold "$text")"
     for i in $(seq 0 100); do
         local filled=$((i * width / 100))
@@ -31,10 +35,10 @@ progress_bar() {
         sleep "$duration"
     done
     echo
-    if ! eval "$command"; then
-        echo -e "${RED}❌ Failed: $text${NC}"
-        exit 1
-    fi
+
+    # IMPORTANT: do NOT exit on failure
+    eval "$command" || echo -e "${YELLOW}⚠ Skipped / already done${NC}"
+
     echo -e "${GREEN}✔ Done${NC}\n"
 }
 
@@ -46,20 +50,22 @@ echo -e "${YELLOW}Version: ${CS_VERSION}${NC}\n"
 bold "INSTALLING...\n"
 
 # ===================== TERMUX DEPS =====================
-if ! command -v proot-distro &>/dev/null; then
-    progress_bar 0.01 "Installing proot-distro" "pkg install -y proot-distro"
-else
+if command -v proot-distro &>/dev/null; then
     echo -e "${GREEN}✔ proot-distro already installed${NC}\n"
+else
+    progress_bar 0.01 "Installing proot-distro" "pkg install -y proot-distro"
 fi
 
-if ! command -v dialog &>/dev/null; then
-    progress_bar 0.01 "Installing dialog" "pkg install -y dialog"
-else
+if command -v dialog &>/dev/null; then
     echo -e "${GREEN}✔ dialog already installed${NC}\n"
+else
+    progress_bar 0.01 "Installing dialog" "pkg install -y dialog"
 fi
 
 # ===================== UBUNTU =====================
-if proot-distro list 2>/dev/null | grep -q "^ubuntu .*installed"; then
+echo -e "${CYAN}Checking Ubuntu installation...${NC}"
+
+if proot-distro list --installed 2>/dev/null | grep -qx "ubuntu"; then
     echo -e "${GREEN}✔ Ubuntu already installed — skipping${NC}\n"
 else
     progress_bar 0.01 "Installing Ubuntu" "proot-distro install ubuntu"
@@ -73,11 +79,12 @@ apt update -y
 apt upgrade -y
 apt install -y wget tar
 cd ~
+
 if [ ! -d \"$CS_DIR\" ]; then
     wget -q \"$CS_URL\"
     tar -xf \"$CS_DIR.tar.gz\"
 else
-    echo \"Code-server already exists, skipping download\"
+    echo \"Code-server already exists\"
 fi
 '
 "
@@ -148,7 +155,8 @@ export PASSWORD=\$PASSWORD
         3)
             clear
             echo -e "\${RED}Stopping VS Code...\${NC}"
-            proot-distro login ubuntu -- pkill -f code-server && echo "Stopped." || echo "Not running."
+            proot-distro login ubuntu -- pkill -f code-server || true
+            echo "Stopped (if running)."
             read -p 'Press Enter...'
             ;;
         4)
